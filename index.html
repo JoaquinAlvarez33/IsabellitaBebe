@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para el amor de mi vida ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at top, #fff1f2, #ffe4e6, #fecdd3);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .font-cursive {
+      font-family: 'Dancing Script', cursive;
+    }
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+    }
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+      z-index: 0;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); }
+      50% { transform: scale(1.04); box-shadow: 0 0 25px rgba(244, 63, 94, 0.6); }
+    }
+    .pulse-glow {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="text-slate-800 relative selection:bg-rose-200">
+
+  <div id="heartsContainer" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+  <main class="relative z-10 max-w-xl mx-auto px-4 py-10 flex flex-col items-center">
+    
+    <!-- Header principal -->
+    <header class="text-center mb-8">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 border border-rose-200 text-rose-600 text-xs font-medium tracking-wide uppercase shadow-sm">
+        💌 Un mensaje muy especial
+      </span>
+      <h1 class="font-serif-title text-4xl sm:text-5xl font-semibold text-rose-950 mt-4 leading-tight">
+        Para ti, mi niña bonita
+      </h1>
+      <p class="text-rose-700/80 text-sm sm:text-base mt-2 max-w-md mx-auto">
+        A veces las palabras en un mal momento fallan, pero lo que siento por ti no cambia. Hice esto para recordarte quiénes somos.
+      </p>
+    </header>
+
+    <section id="envelopeSection" class="w-full glass-card p-6 sm:p-8 rounded-3xl shadow-xl text-center transition-all duration-500">
+      <div class="text-6xl mb-4 animate-bounce cursor-pointer" onclick="startJourney()">
+        ✉️
+      </div>
+      <h2 class="text-xl font-semibold text-rose-900 mb-2 font-serif-title">
+        ¿Hacemos una pequeña pausa juntos?
+      </h2>
+      <p class="text-slate-600 text-sm mb-6 leading-relaxed">
+        Sé que tuvimos un momento amargo, pero nuestro amor es más grande que cualquier discusión. Da click al botón para recorrer este pequeño camino juntos.
+      </p>
+      <button onclick="startJourney()" class="pulse-glow bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium px-7 py-3 rounded-full shadow-lg shadow-rose-300/50 transition duration-300 transform active:scale-95 text-base flex items-center justify-center gap-2 mx-auto">
+        <span>Comenzar nuestro camino</span>
+        <span>✨</span>
+      </button>
+    </section>
+
+    <section id="journeySection" class="w-full hidden space-y-6 mt-4">
+      <div class="text-center mb-6">
+        <p class="text-xs font-semibold tracking-wider text-rose-500 uppercase">Paso a paso</p>
+        <h3 class="font-serif-title text-2xl text-rose-950 font-medium">Toca cada recuerdo y promesa</h3>
+        <p class="text-xs text-slate-500 mt-1">Completa los 4 pasos para desbloquear nuestro recuerdo favorito</p>
+        
+        <!-- Barra de progreso -->
+        <div class="w-full bg-rose-100 rounded-full h-2.5 mt-4 overflow-hidden border border-rose-200">
+          <div id="progressBar" class="bg-gradient-to-r from-rose-400 to-pink-500 h-full w-0 transition-all duration-500 ease-out"></div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 1: La disculpa sincera -->
+      <article id="card1" class="glass-card p-5 sm:p-6 rounded-2xl shadow-md border-l-4 border-rose-400 transition transform hover:-translate-y-1 cursor-pointer" onclick="revealStep(1)">
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-rose-100 rounded-xl text-2xl flex-shrink-0" id="icon1">🕊️</div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-rose-900 text-base sm:text-lg flex justify-between items-center">
+              <span>1. Lo siento de corazón</span>
+              <span class="text-xs text-rose-400 font-normal" id="status1">Toca para abrir</span>
+            </h4>
+            <div id="content1" class="hidden mt-2 text-sm text-slate-700 leading-relaxed border-t border-rose-100 pt-2.5">
+              <p>No me gusta estar distanciado de ti ni por un segundo. Lamento si mis palabras, actitudes o silencios te lastimaron. Eres la persona que más cuido en este mundo y quiero que siempre encuentres en mí un lugar seguro.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tarjeta 2: Lo que más valoro de ti -->
+      <article id="card2" class="glass-card p-5 sm:p-6 rounded-2xl shadow-md border-l-4 border-pink-400 transition transform hover:-translate-y-1 cursor-pointer opacity-60 pointer-events-none" onclick="revealStep(2)">
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-pink-100 rounded-xl text-2xl flex-shrink-0" id="icon2">🌸</div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-rose-900 text-base sm:text-lg flex justify-between items-center">
+              <span>2. Lo que amo de ti</span>
+              <span class="text-xs text-rose-400 font-normal" id="status2">Bloqueado</span>
+            </h4>
+            <div id="content2" class="hidden mt-2 text-sm text-slate-700 leading-relaxed border-t border-pink-100 pt-2.5">
+              <p>Amo tu ternura, tu risa, tu forma de apoyarme y todo lo que hemos construido. Nadie me hace sentir la felicidad que tú me das tan solo con existir en mis días.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tarjeta 3: Mi compromiso contigo -->
+      <article id="card3" class="glass-card p-5 sm:p-6 rounded-2xl shadow-md border-l-4 border-rose-500 transition transform hover:-translate-y-1 cursor-pointer opacity-60 pointer-events-none" onclick="revealStep(3)">
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-rose-100 rounded-xl text-2xl flex-shrink-0" id="icon3">🤝</div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-rose-900 text-base sm:text-lg flex justify-between items-center">
+              <span>3. Mi promesa para los dos</span>
+              <span class="text-xs text-rose-400 font-normal" id="status3">Bloqueado</span>
+            </h4>
+            <div id="content3" class="hidden mt-2 text-sm text-slate-700 leading-relaxed border-t border-rose-100 pt-2.5">
+              <p>Prometo escucharte mejor, ser más paciente y recordar siempre que somos un equipo. Ningún desacuerdo es más importante que el amor y respeto que nos tenemos.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tarjeta 4: Botón de abrazos ilimitados -->
+      <article id="card4" class="glass-card p-5 sm:p-6 rounded-2xl shadow-md border-l-4 border-amber-400 transition transform hover:-translate-y-1 cursor-pointer opacity-60 pointer-events-none" onclick="revealStep(4)">
+        <div class="flex items-start gap-4">
+          <div class="p-3 bg-amber-100 rounded-xl text-2xl flex-shrink-0" id="icon4">🫂</div>
+          <div class="flex-grow">
+            <h4 class="font-semibold text-rose-900 text-base sm:text-lg flex justify-between items-center">
+              <span>4. Contador de abrazos</span>
+              <span class="text-xs text-rose-400 font-normal" id="status4">Bloqueado</span>
+            </h4>
+            <div id="content4" class="hidden mt-2 text-sm text-slate-700 leading-relaxed border-t border-amber-100 pt-2.5">
+              <p class="mb-3">Cada vez que toques este botón te mando un abrazo apretado:</p>
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="sendHug(event)" class="bg-rose-500 hover:bg-rose-600 text-white text-xs px-4 py-2 rounded-xl transition transform active:scale-90 flex items-center gap-1 shadow">
+                  <span>¡Enviar abrazo!</span> 💖
+                </button>
+                <span id="hugCounter" class="text-xs font-semibold text-rose-700 bg-rose-50 px-2.5 py-1.5 rounded-lg border border-rose-200">
+                  0 abrazos dados
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="photoSection" class="w-full hidden mt-8 text-center transition-all duration-700">
+      
+      <!-- Marco estilo Polaroid -->
+      <div class="bg-white p-4 pb-6 rounded-2xl shadow-2xl max-w-sm mx-auto transform rotate-[-1.5deg] hover:rotate-0 transition duration-300 border border-slate-100">
+        <div class="relative w-full aspect-[4/5] bg-rose-50 rounded-lg overflow-hidden flex items-center justify-center border border-slate-100 shadow-inner group">
+          
+          <!-- Imagen principal de la pareja -->
+          <img id="coupleImage" 
+               src="foto.jpg" 
+               alt="Nosotros" 
+               class="w-full h-full object-cover"
+               onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';">
+          
+          <!-- Overlay interactivo para probar una foto local en vivo -->
+          <label for="imageUploadInput" class="absolute bottom-3 right-3 bg-black/60 hover:bg-black/80 backdrop-blur-md text-white text-xs px-2.5 py-1.5 rounded-lg cursor-pointer transition flex items-center gap-1.5 shadow">
+            <span>📷 Cambiar foto</span>
+            <input type="file" id="imageUploadInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+          </label>
+        </div>
+
+        <p class="font-cursive text-2xl sm:text-3xl text-slate-800 mt-4 font-bold tracking-wide">
+          "Tú y yo, siempre juntos" ❤️
+        </p>
+        <p class="text-[11px] text-slate-400 mt-1 uppercase tracking-wider font-semibold">
+          Nuestra historia favorita
+        </p>
+      </div>
+
+      <div class="glass-card mt-8 p-6 sm:p-8 rounded-3xl shadow-xl text-center">
+        <h3 class="font-serif-title text-2xl text-rose-950 font-semibold mb-2">
+          ¿Hacemos las paces?
+        </h3>
+        <p class="text-slate-600 text-sm mb-6 max-w-md mx-auto leading-relaxed">
+          No imagino mis días sin ti. Eres mi persona favorita, mi refugio y el motivo de mis sonrisas. Te amo con todo mi ser.
+        </p>
+
+        <!-- Botones de reconciliación -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button onclick="celebrateReconciliation('¡Sí, te amo mucho!')" class="w-full sm:w-auto bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-medium px-8 py-3 rounded-full shadow-lg shadow-rose-300 transition transform active:scale-95 flex items-center justify-center gap-2">
+            <span>Sí, te amo muchísimo</span> 💕
+          </button>
+          <button onclick="celebrateReconciliation('¡Claro que sí, mi amor!')" class="w-full sm:w-auto bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 font-medium px-6 py-3 rounded-full shadow transition transform active:scale-95 flex items-center justify-center gap-2">
+            <span>Claro que sí, mi amor</span> 🌹
+          </button>
+        </div>
+
+        <!-- Mensaje de respuesta confirmada -->
+        <div id="finalLoveMessage" class="hidden mt-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-sm font-medium animate-fadeIn">
+          <!-- Texto generado dinámicamente -->
+        </div>
+      </div>
+      
+      <footer class="mt-8 text-center text-xs text-rose-600/70 pb-6">
+        Hecho con todo mi amor para ti ✨
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    // Inicialización del sintetizador de audio para crear campanadas románticas
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playNote(freq = 440, type = 'sine', duration = 0.4) {
+      try {
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // En caso de restricciones del navegador, el flujo continúa sin interrupción
+      }
+    }
+
+    function playSweetChime() {
+      playNote(523.25, 'sine', 0.5); // C5
+      setTimeout(() => playNote(659.25, 'sine', 0.5), 120); // E5
+      setTimeout(() => playNote(783.99, 'sine', 0.6), 240); // G5
+      setTimeout(() => playNote(1046.50, 'sine', 0.8), 360); // C6
+    }
+
+    let currentUnlockedStep = 1;
+    let hugsCount = 0;
+
+    function startJourney() {
+      playSweetChime();
+      document.getElementById('envelopeSection').classList.add('hidden');
+      const journeySection = document.getElementById('journeySection');
+      journeySection.classList.remove('hidden');
+      journeySection.scrollIntoView({ behavior: 'smooth' });
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const percentage = ((currentUnlockedStep - 1) / 4) * 100;
+      progressBar.style.width = percentage + '%';
+    }
+
+    function revealStep(stepNumber) {
+      const content = document.getElementById(`content${stepNumber}`);
+      const status = document.getElementById(`status${stepNumber}`);
+      
+      // Si ya está revelado, permitir contraer o expandir
+      if (!content.classList.contains('hidden')) {
+        playNote(400, 'triangle', 0.2);
+        return;
+      }
+
+      playSweetChime();
+      content.classList.remove('hidden');
+      status.innerText = "Abierto ❤️";
+      status.classList.remove('text-rose-400');
+      status.classList.add('text-emerald-500', 'font-medium');
+
+      // Desbloquear el siguiente paso
+      const nextStep = stepNumber + 1;
+      if (nextStep <= 4) {
+        const nextCard = document.getElementById(`card${nextStep}`);
+        const nextStatus = document.getElementById(`status${nextStep}`);
+        nextCard.classList.remove('opacity-60', 'pointer-events-none');
+        nextStatus.innerText = "Toca para abrir";
+        currentUnlockedStep = nextStep;
+        updateProgress();
+      } else if (stepNumber === 4) {
+        // Se desbloquea la foto final
+        currentUnlockedStep = 5;
+        updateProgress();
+        setTimeout(showFinalPhotoSection, 600);
+      }
+    }
+
+    function sendHug(event) {
+      event.stopPropagation();
+      hugsCount++;
+      playNote(880, 'sine', 0.3);
+      
+      const hugCounter = document.getElementById('hugCounter');
+      hugCounter.innerText = `${hugsCount} ${hugsCount === 1 ? 'abrazo dado' : 'abrazos dados'} 🤗`;
+      hugCounter.classList.add('scale-110', 'bg-rose-100');
+      setTimeout(() => {
+        hugCounter.classList.remove('scale-110', 'bg-rose-100');
+      }, 200);
+
+      // Lanzar pequeños corazones de confeti
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 15,
+          spread: 50,
+          origin: { y: 0.7 },
+          colors: ['#f43f5e', '#fb7185', '#fda4af']
+        });
+      }
+    }
+
+    function showFinalPhotoSection() {
+      const photoSection = document.getElementById('photoSection');
+      photoSection.classList.remove('hidden');
+      photoSection.scrollIntoView({ behavior: 'smooth' });
+
+      // Celebración con confeti
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    function celebrateReconciliation(replyText) {
+      playSweetChime();
+      
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          origin: { y: 0.5 },
+          colors: ['#e11d48', '#f43f5e', '#ec4899', '#fbcfe8']
+        });
+      }
+
+      const msgBox = document.getElementById('finalLoveMessage');
+      msgBox.innerHTML = `
+        <div class="text-2xl mb-1">🥰</div>
+        <div class="text-base font-bold text-rose-800">${replyText}</div>
+        <div class="text-xs text-rose-700 mt-1">Gracias por ser tan comprensiva y por darme la oportunidad de amarte cada día mejor. Te amo con todo mi corazón.</div>
+      `;
+      msgBox.classList.remove('hidden');
+      msgBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Permitir previsualizar una imagen local al probar
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('coupleImage').src = evt.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function createFloatingHearts() {
+      const container = document.getElementById('heartsContainer');
+      const symbols = ['❤️', '💖', '💕', '✨', '🌸'];
+
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '-50px';
+        heart.style.fontSize = (Math.random() * 16 + 14) + 'px';
+        heart.style.animationDuration = (Math.random() * 5 + 6) + 's';
+        heart.style.opacity = Math.random() * 0.5 + 0.3;
+
+        container.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 11000);
+      }, 700);
+    }
+
+    window.onload = function() {
+      createFloatingHearts();
+    };
+  </script>
+</body>
+</html>
